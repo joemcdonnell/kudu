@@ -147,15 +147,19 @@ string ScanSpec::ToString(const Schema& schema) const {
   return JoinStrings(preds, " AND ") + limit;
 }
 
-void ScanSpec::UnifyPrimaryKeyBoundsAndColumnPredicates(const Schema& schema,
-                                                        Arena* arena,
-                                                        bool remove_pushed_predicates) {
-  LiftPrimaryKeyBounds(schema, arena);
-  PushPredicatesIntoPrimaryKeyBounds(schema, arena, remove_pushed_predicates);
-}
-
-void ScanSpec::OptimizeScan(const Schema& schema, Arena* arena, bool remove_pushed_predicates) {
-  UnifyPrimaryKeyBoundsAndColumnPredicates(schema, arena, remove_pushed_predicates);
+void ScanSpec::OptimizeScan(const Schema& schema,
+                            Arena* arena,
+                            bool remove_pushed_predicates) {
+  // Don't bother if we can already short circuit the scan. This also lets us
+  // rely on lower_bound_key_ < exclusive_upper_bound_key_ and no None
+  // predicates in the optimization step.
+  if (!CanShortCircuit()) {
+    LiftPrimaryKeyBounds(schema, arena);
+    // Predicates may be has None, after merge PrimaryKeyBounds and Predicates
+    if (!CanShortCircuit()) {
+      PushPredicatesIntoPrimaryKeyBounds(schema, arena, remove_pushed_predicates);
+    }
+  }
 
   // KUDU-1652: Filter IS NOT NULL predicates for non-nullable columns.
   for (auto itr = predicates_.begin(); itr != predicates_.end(); ) {
@@ -223,9 +227,6 @@ vector<ColumnSchema> ScanSpec::GetMissingColumns(const Schema& projection) {
 void ScanSpec::PushPredicatesIntoPrimaryKeyBounds(const Schema& schema,
                                                   Arena* arena,
                                                   bool remove_pushed_predicates) {
-  if (CanShortCircuit()) {
-    return;
-  }
   // Step 1: load key column predicate values into a pair of rows.
   uint8_t* lower_buf = static_cast<uint8_t*>(
       CHECK_NOTNULL(arena->AllocateBytes(schema.key_byte_size())));
@@ -278,9 +279,6 @@ void ScanSpec::PushPredicatesIntoPrimaryKeyBounds(const Schema& schema,
 }
 
 void ScanSpec::LiftPrimaryKeyBounds(const Schema& schema, Arena* arena) {
-  if (CanShortCircuit()) {
-    return;
-  }
   if (lower_bound_key_ == nullptr && exclusive_upper_bound_key_ == nullptr) { return; }
   int32_t num_key_columns = schema.num_key_columns();
   for (int32_t col_idx = 0; col_idx < num_key_columns; col_idx++) {
