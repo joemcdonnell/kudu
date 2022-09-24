@@ -317,10 +317,11 @@ fetch_and_patch \
  $CRCUTIL_PATCHLEVEL
 
 LIBUNWIND_PATCHLEVEL=1
-fetch_and_patch \
+fetch_with_url_and_patch \
  libunwind-${LIBUNWIND_VERSION}.tar.gz \
  $LIBUNWIND_SOURCE \
  $LIBUNWIND_PATCHLEVEL \
+ "https://native-toolchain.s3.amazonaws.com/source/libunwind" \
  "patch -p1 < $TP_DIR/patches/libunwind-trace-cache-destructor.patch"
 
 PYTHON_PATCHLEVEL=0
