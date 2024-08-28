@@ -15,12 +15,16 @@
 // specific language governing permissions and limitations
 // under the License.
 
+plugins {
+  id("java-library")
+}
+
 apply from: "$rootDir/gradle/shadow.gradle"
 apply from: "$rootDir/gradle/benchmarks.gradle"
 
 dependencies {
-  implementation project(path: ":kudu-proto")
-  implementation libs.protobufJava
+  api project(path: ":kudu-proto")
+  api libs.protobufJava
 
   // Not shaded in the client JAR because it's part of the public API.
   compileUnshaded (libs.async) {
@@ -30,12 +34,12 @@ dependencies {
   }
   compileUnshaded libs.slf4jApi
 
-  implementation (libs.guava) {
+  api (libs.guava) {
     exclude(group: "com.google.errorprone")
   }
-  implementation libs.micrometerCore
-  implementation libs.murmur
-  implementation libs.netty
+  api libs.micrometerCore
+  api libs.murmur
+  api libs.netty
 
   compileOnly libs.jsr305
   compileOnly libs.yetusAnnotations

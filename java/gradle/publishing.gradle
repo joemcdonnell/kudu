@@ -19,6 +19,7 @@
 
 apply plugin: "maven-publish"
 apply plugin: "signing"
+apply plugin: "com.github.johnrengelman.shadow"
 
 ext {
   // This allows simplified builds and local maven installs.
@@ -66,6 +67,21 @@ publishing {
             url = "https://www.apache.org/licenses/LICENSE-2.0.txt"
             distribution = "repo"
           }
+        }
+      }
+
+      // fix pom
+      pom.withXml {
+        def apiDeps = project.configurations.api.allDependencies
+        def shadedDeps = project.configurations.shadow.allDependencies
+        def finalDeps = apiDeps - shadedDeps
+        asNode().dependencies.dependency.findAll{
+          finalDeps.findAll{ dep ->
+            dep.name == it.artifactId*.value()[0][0]
+          }
+        }.each() {
+          logger.info "Removing: ${it.artifactId*.value()[0][0]} from pom"
+          assert it.parent().remove(it)
         }
       }
     }
