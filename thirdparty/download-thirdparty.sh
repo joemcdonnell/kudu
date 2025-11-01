@@ -447,11 +447,12 @@ fetch_and_patch \
  $HADOOP_SOURCE \
  $HADOOP_PATCHLEVEL
 
-YAML_PATCHLEVEL=0
+YAML_PATCHLEVEL=1
 fetch_and_patch \
  $YAML_NAME.tar.gz \
  $YAML_SOURCE \
- $YAML_PATCHLEVEL
+ $YAML_PATCHLEVEL \
+ "patch -p1 < $TP_DIR/patches/yaml-fix-missing-cstdint-for-GCC15.patch"
 
 CHRONY_PATCHLEVEL=1
 fetch_and_patch \
