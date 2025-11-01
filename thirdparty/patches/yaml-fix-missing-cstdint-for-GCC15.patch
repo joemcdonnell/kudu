@@ -1,0 +1,9 @@
+diff -Naur yaml-cpp-yaml-cpp-0.8.0/src/emitterutils.cpp yaml-cpp-yaml-cpp-0.8.0.patched/src/emitterutils.cpp
+--- yaml-cpp-yaml-cpp-0.8.0/src/emitterutils.cpp	2023-08-10 12:27:56.000000000 -0700
++++ yaml-cpp-yaml-cpp-0.8.0.patched/src/emitterutils.cpp	2025-11-01 15:35:58.022038372 -0700
+@@ -1,4 +1,5 @@
+ #include <algorithm>
++#include <cstdint>
+ #include <iomanip>
+ #include <sstream>
+ 
