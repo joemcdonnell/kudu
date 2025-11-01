@@ -511,12 +511,13 @@ fetch_and_patch \
  $RANGER_KMS_SOURCE \
  $RANGER_KMS_PATCHLEVEL
 
-ROCKSDB_PATCHLEVEL=1
+ROCKSDB_PATCHLEVEL=2
 fetch_and_patch \
  $ROCKSDB_NAME.tar.gz \
  $ROCKSDB_SOURCE \
  $ROCKSDB_PATCHLEVEL \
- "patch -p1 < $TP_DIR/patches/rocksdb-gcc13.patch"
+ "patch -p1 < $TP_DIR/patches/rocksdb-gcc13.patch" \
+ "patch -p1 < $TP_DIR/patches/rocksdb-gcc15.patch"
 
 echo "---------------"
 echo "Thirdparty dependencies downloaded successfully"

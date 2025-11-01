@@ -1,0 +1,11 @@
+diff -Naur rocksdb-7.7.3/db/blob/blob_file_meta.h rocksdb-7.7.3.patched/db/blob/blob_file_meta.h
+--- rocksdb-7.7.3/db/blob/blob_file_meta.h	2022-10-11 12:18:26.000000000 -0700
++++ rocksdb-7.7.3.patched/db/blob/blob_file_meta.h	2025-11-01 16:06:44.909499631 -0700
+@@ -6,6 +6,7 @@
+ #pragma once
+ 
+ #include <cassert>
++#include <cstdint>
+ #include <iosfwd>
+ #include <memory>
+ #include <string>
