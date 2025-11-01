@@ -1,0 +1,11 @@
+diff -Naur thrift-0.21.0/lib/cpp/src/thrift/concurrency/Mutex.h thrift-0.21.0.patched/lib/cpp/src/thrift/concurrency/Mutex.h
+--- thrift-0.21.0/lib/cpp/src/thrift/concurrency/Mutex.h	2024-09-15 05:38:19.000000000 -0700
++++ thrift-0.21.0.patched/lib/cpp/src/thrift/concurrency/Mutex.h	2025-11-01 15:11:21.450071294 -0700
+@@ -20,6 +20,7 @@
+ #ifndef _THRIFT_CONCURRENCY_MUTEX_H_
+ #define _THRIFT_CONCURRENCY_MUTEX_H_ 1
+ 
++#include <cstdint>
+ #include <memory>
+ #include <thrift/TNonCopyable.h>
+ 

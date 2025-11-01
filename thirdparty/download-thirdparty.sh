@@ -420,11 +420,12 @@ fetch_and_patch \
  $SPARSEPP_SOURCE \
  $SPARSEPP_PATCHLEVEL
 
-THRIFT_PATCHLEVEL=0
+THRIFT_PATCHLEVEL=1
 fetch_and_patch \
  $THRIFT_NAME.tar.gz \
  $THRIFT_SOURCE \
- $THRIFT_PATCHLEVEL
+ $THRIFT_PATCHLEVEL \
+ "patch -p1 < $TP_DIR/patches/thrift-fix-cstdint-include-for-gcc15.patch"
 
 BISON_PATCHLEVEL=0
 fetch_and_patch \
