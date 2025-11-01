@@ -1,0 +1,11 @@
+diff -Naur llvm-11.0.0.src/lib/Target/X86/MCTargetDesc/X86MCTargetDesc.h llvm-11.0.0.src.patched/lib/Target/X86/MCTargetDesc/X86MCTargetDesc.h
+--- llvm-11.0.0.src/lib/Target/X86/MCTargetDesc/X86MCTargetDesc.h	2020-10-07 03:10:48.000000000 -0700
++++ llvm-11.0.0.src.patched/lib/Target/X86/MCTargetDesc/X86MCTargetDesc.h	2025-11-01 13:00:48.196908281 -0700
+@@ -13,6 +13,7 @@
+ #ifndef LLVM_LIB_TARGET_X86_MCTARGETDESC_X86MCTARGETDESC_H
+ #define LLVM_LIB_TARGET_X86_MCTARGETDESC_X86MCTARGETDESC_H
+ 
++#include <cstdint>
+ #include <memory>
+ #include <string>
+ 
