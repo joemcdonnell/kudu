@@ -345,7 +345,7 @@ fetch_and_patch \
  $PYTHON_SOURCE \
  $PYTHON_PATCHLEVEL
 
-LLVM_PATCHLEVEL=8
+LLVM_PATCHLEVEL=9
 fetch_and_patch \
  llvm-${LLVM_VERSION}-iwyu-${IWYU_VERSION}.src.tar.gz \
  $LLVM_SOURCE \
@@ -364,7 +364,8 @@ fetch_and_patch \
  "patch -p1 < $TP_DIR/patches/llvm-is-convertible-00.patch" \
  "patch -p1 < $TP_DIR/patches/llvm-is-convertible-01.patch" \
  "patch -p1 < $TP_DIR/patches/llvm-chrono-duration-00.patch" \
- "patch -p1 < $TP_DIR/patches/llvm-chrono-duration-01.patch"
+ "patch -p1 < $TP_DIR/patches/llvm-chrono-duration-01.patch" \
+ "patch -p1 < $TP_DIR/patches/llvm-gcc15-fix-missing-cstdint-include.patch"
 
 LZ4_PATCHLEVEL=0
 fetch_and_patch \
