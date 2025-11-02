@@ -1,0 +1,11 @@
+diff -Naur rocksdb-7.7.3/include/rocksdb/trace_record.h rocksdb-7.7.3.patched/include/rocksdb/trace_record.h
+--- rocksdb-7.7.3/include/rocksdb/trace_record.h	2022-10-11 12:18:26.000000000 -0700
++++ rocksdb-7.7.3.patched/include/rocksdb/trace_record.h	2025-11-01 16:58:54.780332220 -0700
+@@ -5,6 +5,7 @@
+ 
+ #pragma once
+ 
++#include <cstdint>
+ #include <memory>
+ #include <string>
+ #include <vector>
