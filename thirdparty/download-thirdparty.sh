@@ -518,7 +518,8 @@ fetch_and_patch \
  $ROCKSDB_PATCHLEVEL \
  "patch -p1 < $TP_DIR/patches/rocksdb-gcc13.patch" \
  "patch -p1 < $TP_DIR/patches/rocksdb-gcc15.patch" \
- "patch -p1 < $TP_DIR/patches/rocksdb-gcc15-part2.patch"
+ "patch -p1 < $TP_DIR/patches/rocksdb-gcc15-part2.patch" \
+ "patch -p1 < $TP_DIR/patches/rocksdb-gcc15-part3.patch"
 
 echo "---------------"
 echo "Thirdparty dependencies downloaded successfully"
