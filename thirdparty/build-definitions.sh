@@ -427,7 +427,9 @@ build_libunwind() {
   pushd $LIBUNWIND_BDIR
   # Disable minidebuginfo, which depends on liblzma, until/unless we decide to
   # add liblzma to thirdparty.
-  CFLAGS="$EXTRA_CFLAGS" \
+  # GCC 14+ added an error for incompatible pointer types. Libunwind's ARM
+  # build triggers that, so turn off that error.
+  CFLAGS="$EXTRA_CFLAGS -Wno-error=incompatible-pointer-types" \
     $LIBUNWIND_SOURCE/configure \
     --disable-minidebuginfo \
     --with-pic \
